@@ -2,6 +2,10 @@ resource "google_cloud_run_v2_service" "service" {
   name     = "${var.name_prefix}-api"
   location = var.region
 
+  # Provider 6.x defaults this to true, which blocks `terraform destroy`.
+  # A lab that promises clean teardown must be destroyable.
+  deletion_protection = false
+
   # Public ingress is a deliberate lab simplification. Hardened ingress
   # (LB + serverless NEG + Cloud Armor + blocked default URL) is covered by
   # the separate gcp-secure-ingress project.
