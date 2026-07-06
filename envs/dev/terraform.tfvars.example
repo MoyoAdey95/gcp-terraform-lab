@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars and edit. terraform.tfvars is gitignored.
+
+project_id = "your-lab-project-id"
+region     = "europe-west1"
+
+# After pushing your own image (see README), replace the default hello image:
+# image = "europe-west1-docker.pkg.dev/your-lab-project-id/tf-lab-images/tf-lab-api:0.1.0"
+
+# app_message = "any non-sensitive demo value"
+# alert_email = "you@example.com"
