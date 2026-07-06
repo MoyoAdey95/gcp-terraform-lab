@@ -1,7 +1,7 @@
 # gcp-terraform-lab
 
 A small but realistic GCP environment built entirely with Terraform. This is a
-personal lab, not client or production work — it exists so the infrastructure
+personal lab, not client or production work. It exists so the infrastructure
 patterns I use professionally (modular Terraform, least-privilege IAM, secret
 injection, monitoring) are visible in a public, inspectable repo.
 
