@@ -71,7 +71,9 @@ REGION=europe-west1
 REPO=$(terraform output -raw artifact_registry_url)
 
 gcloud auth configure-docker ${REGION}-docker.pkg.dev
-docker build -t ${REPO}/tf-lab-api:0.1.0 ../../app
+# --platform matters: Cloud Run runs amd64 only. Building on Apple Silicon
+# without it produces an arm64 image that fails to start (exec format error).
+docker build --platform linux/amd64 -t ${REPO}/tf-lab-api:0.1.0 ../../app
 docker push ${REPO}/tf-lab-api:0.1.0
 
 # set image = "<REPO>/tf-lab-api:0.1.0" in terraform.tfvars, then
@@ -81,7 +83,9 @@ terraform apply
 Verify:
 
 ```bash
-curl "$(terraform output -raw service_url)/healthz"
+# /health, not /healthz: Google Frontend intercepts /healthz on run.app
+# URLs and returns its own 404 before the request reaches the container.
+curl "$(terraform output -raw service_url)/health"
 curl "$(terraform output -raw service_url)/"
 ```
 
