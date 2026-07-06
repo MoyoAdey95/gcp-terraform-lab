@@ -99,6 +99,17 @@ terraform destroy
 The state bucket is intentionally outside Terraform; delete it manually when
 you're finished with the lab entirely.
 
+### Teardown quirks (hit in practice)
+
+- **Subnet destroy fails with `resourceInUseByAnotherResource`:** Direct VPC
+  egress reserves Google-managed `serverless-ipv4-*` addresses in the subnet,
+  and they're released asynchronously after the Cloud Run service is deleted.
+  You can't delete them yourself. Wait 15-20 minutes and run
+  `terraform destroy` again.
+- **Cloud Run refuses to delete:** provider 6.x defaults
+  `deletion_protection = true`; this module sets it to false explicitly so
+  the lab keeps its clean-teardown promise.
+
 ## Cost
 
 Everything targets free tier / minimal SKUs: Cloud Run scales to zero, the
