@@ -112,9 +112,19 @@ you're finished with the lab entirely.
 
 ## Cost
 
-Everything targets free tier / minimal SKUs: Cloud Run scales to zero, the
-uptime check and secret are pennies. Left running it costs well under $5/month;
-destroyed between sessions it costs effectively nothing.
+Everything targets free tier / minimal SKUs. Destroyed between sessions it
+costs effectively nothing; left running it should be pennies. Should be.
+
+**A billing lesson this repo taught me:** the first version left
+`resources.cpu_idle` at the provider default (`false`), which selects
+instance-based billing: CPU is charged whenever an instance is warm, not just
+while serving requests. The uptime check pinged `/health` every 5 minutes, so
+one instance never went cold, and the "scales to zero" service quietly billed
+around $1.50/day. A $5 budget alert caught it after three idle days. The fix
+is `cpu_idle = true` (request-based billing), which suits a service doing
+quick request/response work. Two takeaways I'd carry to production: monitoring
+probes are traffic and can change your billing mode's behaviour, and budget
+alerts are not optional.
 
 ## Security and design notes
 

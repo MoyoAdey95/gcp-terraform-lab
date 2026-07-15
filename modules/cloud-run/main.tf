@@ -41,6 +41,12 @@ resource "google_cloud_run_v2_service" "service" {
           cpu    = "1"
           memory = "512Mi"
         }
+        # Request-based billing. The provider default (cpu_idle = false) means
+        # instance-based billing: CPU is charged for as long as an instance is
+        # warm. With the uptime check hitting /health every 5 minutes, one
+        # instance never went cold and idled at roughly $1.50/day. Found via a
+        # budget alert, not the docs. See "Cost" in the README.
+        cpu_idle = true
       }
     }
 
