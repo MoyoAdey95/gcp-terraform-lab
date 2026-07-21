@@ -18,10 +18,10 @@ secret.
 ## No logging/monitoring grants on the runtime SA
 
 Container stdout/stderr is captured by Cloud Run's own service agent, so the
-runtime SA needs no logging role. This gets asked about a lot: granting
+runtime SA needs no logging role. This gets asked about a lot. Granting
 `roles/logging.logWriter` "just in case" is a common bit of cargo-culting.
 
-## allUsers invoker: a deliberate, gated exception
+## allUsers invoker, a deliberate, gated exception
 
 Public invocation is a lab convenience (so the service can be curl'd and
 uptime-checked without auth tokens), gated behind `allow_public_access` so it
@@ -31,7 +31,7 @@ subject of the companion `gcp-secure-ingress` project.
 
 ## Who applies the Terraform?
 
-In this lab: my user credentials via ADC. In production: a dedicated deployer
+In this lab, my user credentials via ADC. In production, a dedicated deployer
 SA used by CI, authenticated with Workload Identity Federation (no exported
 JSON keys), with roles scoped to what the stack manages. See
 [production-deltas.md](production-deltas.md).

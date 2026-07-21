@@ -16,7 +16,7 @@ resource "google_compute_subnetwork" "main" {
 }
 
 # Internal-only traffic between resources in the subnet. There is deliberately
-# no 0.0.0.0/0 ingress rule: nothing in this VPC accepts traffic from the
+# no 0.0.0.0/0 ingress rule. Nothing in this VPC accepts traffic from the
 # internet directly (Cloud Run ingress is handled by Google's frontend).
 resource "google_compute_firewall" "allow_internal" {
   name    = "${var.name_prefix}-allow-internal"

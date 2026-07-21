@@ -1,4 +1,4 @@
-# Composition root for the dev environment. Modules do the work; this file
+# Composition root for the dev environment. Modules do the work, this file
 # wires them together and owns the few things too small to modularise
 # (API enablement, the demo secret).
 
@@ -48,7 +48,7 @@ module "iam" {
   depends_on = [google_project_service.required]
 }
 
-# The demo secret lives here rather than in a module: it's a single resource
+# The demo secret lives here rather than in a module. It's a single resource
 # with no reuse story, and a "secrets module" wrapping one secret would be
 # structure for structure's sake.
 resource "google_secret_manager_secret" "app_message" {
@@ -66,7 +66,7 @@ resource "google_secret_manager_secret_version" "app_message" {
   secret_data = var.app_message
 }
 
-# Resource-level grant: the runtime SA can read this one secret, not all
+# Resource-level grant. The runtime SA can read this one secret, not all
 # secrets in the project (which is what roles/secretmanager.secretAccessor at
 # project level would give).
 resource "google_secret_manager_secret_iam_member" "runtime_accessor" {

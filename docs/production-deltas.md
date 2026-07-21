@@ -13,7 +13,7 @@ identical module versions promoted through them, with per-env tfvars. Module
 sources would be pinned to tagged releases, not relative paths, once shared
 across teams.
 
-**Ingress.** No `allUsers` invoker and no direct `run.app` exposure: external
+**Ingress.** No `allUsers` invoker and no direct `run.app` exposure. External
 HTTPS load balancer, serverless NEG, Cloud Armor policy, custom domain with
 managed certs, and Cloud Run ingress restricted to
 `internal-and-cloud-load-balancing`. (Implemented in the companion
@@ -32,4 +32,4 @@ metrics and 5xx/latency alerting alongside the uptime check, and a dashboard
 per service.
 
 **Cost/scale guards.** The `max_instances = 2` cost guard becomes a
-capacity-planned number; budgets and quota alerts managed in Terraform too.
+capacity-planned number, and budgets and quota alerts managed in Terraform too.

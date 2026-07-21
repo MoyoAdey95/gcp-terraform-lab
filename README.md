@@ -96,7 +96,7 @@ cd envs/dev
 terraform destroy
 ```
 
-The state bucket is intentionally outside Terraform; delete it manually when
+The state bucket is intentionally outside Terraform. Delete it manually when
 you're finished with the lab entirely.
 
 ### Teardown quirks (hit in practice)
@@ -107,22 +107,22 @@ you're finished with the lab entirely.
   You can't delete them yourself. Wait 15-20 minutes and run
   `terraform destroy` again.
 - **Cloud Run refuses to delete:** provider 6.x defaults
-  `deletion_protection = true`; this module sets it to false explicitly so
+  `deletion_protection = true`, this module sets it to false explicitly so
   the lab keeps its clean-teardown promise.
 
 ## Cost
 
 Everything targets free tier / minimal SKUs. Destroyed between sessions it
-costs effectively nothing; left running it should be pennies. Should be.
+costs effectively nothing. Left running it should be pennies. Should be.
 
 **A billing lesson this repo taught me:** the first version left
 `resources.cpu_idle` at the provider default (`false`), which selects
-instance-based billing: CPU is charged whenever an instance is warm, not just
+instance-based billing. CPU is charged whenever an instance is warm, not just
 while serving requests. The uptime check pinged `/health` every 5 minutes, so
 one instance never went cold, and the "scales to zero" service quietly billed
 around $1.50/day. A $5 budget alert caught it after three idle days. The fix
 is `cpu_idle = true` (request-based billing), which suits a service doing
-quick request/response work. Two takeaways I'd carry to production: monitoring
+quick request/response work. Two takeaways I'd carry to production. Monitoring
 probes are traffic and can change your billing mode's behaviour, and budget
 alerts are not optional.
 

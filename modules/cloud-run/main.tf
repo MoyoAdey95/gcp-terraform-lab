@@ -50,7 +50,7 @@ resource "google_cloud_run_v2_service" "service" {
       }
     }
 
-    # Direct VPC egress: outbound traffic to private ranges goes through the
+    # Direct VPC egress. Outbound traffic to private ranges goes through the
     # lab VPC, so the network module is doing real work rather than being
     # decorative. Internet-bound traffic still egresses directly.
     vpc_access {
@@ -63,7 +63,7 @@ resource "google_cloud_run_v2_service" "service" {
   }
 }
 
-# Lab-only: the service is publicly invokable so it can be curl'd and uptime-
+# Lab-only. The service is publicly invokable so it can be curl'd and uptime-
 # checked without auth. Gated behind a variable so it's an explicit choice.
 resource "google_cloud_run_v2_service_iam_member" "public_invoker" {
   count = var.allow_public_access ? 1 : 0

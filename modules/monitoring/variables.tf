@@ -14,7 +14,7 @@ variable "service_host" {
 }
 
 variable "alert_email" {
-  description = "Email for alert notifications; empty string disables the channel"
+  description = "Email for alert notifications, empty string disables the channel"
   type        = string
   default     = ""
 }

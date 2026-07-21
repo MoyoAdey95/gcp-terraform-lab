@@ -41,7 +41,7 @@ variable "max_instances" {
 }
 
 variable "alert_email" {
-  description = "Email for uptime alerts; leave empty to skip the notification channel"
+  description = "Email for uptime alerts, leave empty to skip the notification channel"
   type        = string
   default     = ""
 }
