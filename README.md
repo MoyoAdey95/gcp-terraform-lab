@@ -5,7 +5,7 @@ personal lab, not client or production work. It exists so the infrastructure
 patterns I use professionally (modular Terraform, least-privilege IAM, secret
 injection, monitoring) are visible in a public, inspectable repo.
 
-Built with AI-assisted tooling and deployed, tested and maintained by me.
+Deployed, tested and maintained by me.
 
 ## What it deploys
 
